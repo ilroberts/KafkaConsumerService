@@ -19,13 +19,13 @@ class ConsumerService(val brokers: String,
 
   val props = createConsumerConfig(brokers, groupId)
   val consumer = new KafkaConsumer[String, String](props)
-  var executor: ExecutorService = null
+  var executor: ExecutorService = _
 
-  def shutdown() = {
+  def shutdown(): Unit = {
     if (consumer != null)
-      consumer.close();
+      consumer.close()
     if (executor != null)
-      executor.shutdown();
+      executor.shutdown()
   }
 
   def createConsumerConfig(brokers: String, groupId: String): Properties = {
