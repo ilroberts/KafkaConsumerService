@@ -1,4 +1,4 @@
-name := "Kafka"
+name := "KafkaConsumerService"
 
 version := "1.0"
 

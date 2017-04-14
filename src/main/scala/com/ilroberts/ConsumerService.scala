@@ -3,7 +3,7 @@ package com.ilroberts
 import java.util.concurrent._
 import java.util.{Collections, Properties}
 
-import akka.actor.{Actor, ActorSystem, Props}
+import akka.actor.{ActorSystem, Props}
 import com.ilroberts.Messages.Person
 import kafka.utils.Logging
 import org.apache.kafka.clients.consumer.{ConsumerConfig, KafkaConsumer}
@@ -11,15 +11,11 @@ import spray.json._
 
 import scala.collection.JavaConversions._
 
+class ConsumerService(val brokers: String,
+                      val groupId: String,
+                      val topic: String) extends Logging {
 
-
-
-
-class ScalaConsumerExample(val brokers: String,
-                           val groupId: String,
-                           val topic: String) extends Logging {
-
-  val system = ActorSystem("ExampleSystem")
+  val system = ActorSystem("ConsumerSystem")
 
   val props = createConsumerConfig(brokers, groupId)
   val consumer = new KafkaConsumer[String, String](props)
@@ -56,7 +52,7 @@ class ScalaConsumerExample(val brokers: String,
         import DefaultJsonProtocol._
 
         implicit val personFormat = jsonFormat1(Person)
-        val helloActor = system.actorOf(Props[HelloActor])
+        val helloActor = system.actorOf(Props[RoutingActor])
 
         while (true) {
           val records = consumer.poll(1000)
@@ -75,9 +71,9 @@ class ScalaConsumerExample(val brokers: String,
   }
 }
 
-object ScalaConsumerExample extends App {
+object ConsumerService extends App {
 
-  val example = new ScalaConsumerExample("localhost:9092", "group1", "test")
+  val example = new ConsumerService("localhost:9092", "group1", "test")
   example.run()
 
 }
