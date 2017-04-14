@@ -74,5 +74,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="com.typesafe.akka:akka-stream-kafka_2.11:0.14" level="project" />
   </component>
 </module>

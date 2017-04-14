@@ -45,5 +45,6 @@
     <orderEntry type="library" name="SBT: org.slf4j:slf4j-api:1.7.21:jar" level="project" />
     <orderEntry type="library" name="SBT: org.slf4j:slf4j-log4j12:1.7.21:jar" level="project" />
     <orderEntry type="library" name="SBT: org.xerial.snappy:snappy-java:1.1.2.6:jar" level="project" />
+    <orderEntry type="library" name="com.typesafe.akka:akka-stream-kafka_2.11:0.14" level="project" />
   </component>
 </module>
