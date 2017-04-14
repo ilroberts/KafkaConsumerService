@@ -19,3 +19,5 @@ libraryDependencies += "io.spray" % "spray-json_2.11" % "1.3.3"
 // https://mvnrepository.com/artifact/com.typesafe.akka/akka-actor_2.11
 libraryDependencies += "com.typesafe.akka" % "akka-actor_2.11" % "2.4.17"
 
+// https://mvnrepository.com/artifact/com.typesafe/config
+libraryDependencies += "com.typesafe" % "config" % "1.3.1"

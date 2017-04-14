@@ -5,6 +5,7 @@ import java.util.{Collections, Properties}
 
 import akka.actor.{ActorSystem, Props}
 import com.ilroberts.Messages.Person
+import com.typesafe.config.ConfigFactory
 import kafka.utils.Logging
 import org.apache.kafka.clients.consumer.{ConsumerConfig, KafkaConsumer}
 import spray.json._
@@ -73,7 +74,12 @@ class ConsumerService(val brokers: String,
 
 object ConsumerService extends App {
 
-  val example = new ConsumerService("localhost:9092", "group1", "test")
+  val configFactory = ConfigFactory.load()
+  val brokers = configFactory.getString("consumer.brokers")
+  val groupId = configFactory.getString("consumer.groupId")
+  val topic = configFactory.getString("consumer.topic")
+
+  val example = new ConsumerService(brokers, groupId, topic)
   example.run()
 
 }

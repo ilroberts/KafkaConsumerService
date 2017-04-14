@@ -8,7 +8,7 @@ object Messages {
 
 
   sealed trait Message
-  case class BasicMessage(MessageHeader, MessageBody) extends Message
+  case class BasicMessage(header: MessageHeader, body: MessageBody) extends Message
 
   case class Person(name: String)
 
