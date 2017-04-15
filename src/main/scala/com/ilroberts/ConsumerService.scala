@@ -25,7 +25,7 @@ class ConsumerService(val brokers: String,
       executor.shutdown()
   }
 
-  def run() = {
+  def run(): Unit = {
     Executors.newSingleThreadExecutor.execute(new Runnable {
       override def run(): Unit = {
 
