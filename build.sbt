@@ -24,3 +24,4 @@ libraryDependencies += "com.typesafe.akka" %% "akka-stream-kafka" % "0.14"
 // https://mvnrepository.com/artifact/org.scalatest/scalatest_2.11
 libraryDependencies += "org.scalatest" % "scalatest_2.11" % "3.0.1"
 
+

@@ -15,22 +15,22 @@ case class BasicMessage(header: MessageHeader, body: MessageBody)
 
 class JsonTests extends FlatSpec with Matchers {
 
+  import MessageJsonProtocol._
+  import spray.json._
+
+  val jsonString =
+    """
+      |{
+      |   "header": {
+      |     "messageType": "exampleMessageType"
+      |   },
+      |   "body": {
+      |     "field1": "field1Value"
+      |   }
+      |}
+    """.stripMargin
+
   "A message" should "have a header" in {
-
-    import MessageJsonProtocol._
-    import spray.json._
-
-    val jsonString =
-      """
-        |{
-        |   "header": {
-        |     "messageType": "exampleMessageType"
-        |   },
-        |   "body": {
-        |     "field1": "field1Value"
-        |   }
-        |}
-      """.stripMargin
 
     val message = jsonString.parseJson.convertTo[BasicMessage]
     println(message.header.messageType)
@@ -38,4 +38,16 @@ class JsonTests extends FlatSpec with Matchers {
 
   }
 
+  "A message" should "have a message type" in {
+
+    val jsonAst = jsonString.parseJson
+    println(jsonAst.prettyPrint)
+
+
+    val message = jsonAst.asJsObject.fields.foreach(f => println(f.toString()))
+    val header = jsonAst.asJsObject.getFields("header")(0)
+    val messageType = header.asJsObject.getFields("messageType")(0).toString().replace("\"", "")
+
+    assert(messageType == "exampleMessageType")
+  }
 }
