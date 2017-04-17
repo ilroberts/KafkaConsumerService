@@ -43,11 +43,14 @@ class JsonTests extends FlatSpec with Matchers {
     val jsonAst = jsonString.parseJson
     println(jsonAst.prettyPrint)
 
+    val messageType = for {
 
-    val message = jsonAst.asJsObject.fields.foreach(f => println(f.toString()))
-    val header = jsonAst.asJsObject.getFields("header")(0)
-    val messageType = header.asJsObject.getFields("messageType")(0).toString().replace("\"", "")
+      header <- jsonAst.asJsObject.getFields("header").headOption
+      mt <- header.asJsObject.getFields("messageType").headOption
+      mts <- Option(mt.toString().replace("\"", ""))
+    } yield mts
 
-    assert(messageType == "exampleMessageType")
+    val result = messageType.getOrElse("null")
+    assert(result == "exampleMessageType")
   }
 }
